@@ -1,0 +1,17 @@
+{
+    "name": "6dig",
+    "short_name": "6dig",
+    "description": "6dig",
+    "scope": "/6dig-pwa/",
+    "start_url": "/6dig-pwa/",
+    "background_color": "#ffffff",
+    "theme_color": "#ffffff",
+    "display": "standalone",
+    "icons": [
+        {
+            "src": "/6dig-pwa/img/icon.png",
+            "type": "image/png",
+            "sizes": "700x700"
+        }
+    ]
+}
