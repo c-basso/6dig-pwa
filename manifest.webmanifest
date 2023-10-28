@@ -26,15 +26,15 @@
     ],
     "screenshots": [
         {
-            "src": "/6dig-pwa/img/icon_700.png",
+            "src": "/6dig-pwa/img/icon_600.png",
             "type": "image/png",
-            "sizes": "700x700",
+            "sizes": "600x600",
             "form_factor": "narrow"
         },
         {
-            "src": "/6dig-pwa/img/icon_1024.png",
+            "src": "/6dig-pwa/img/icon_500.png",
             "type": "image/png",
-            "sizes": "1024x1024",
+            "sizes": "500x500",
             "form_factor": "wide"
         }
     ]

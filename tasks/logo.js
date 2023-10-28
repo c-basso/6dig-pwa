@@ -20,7 +20,9 @@ const ICONS_PATH =  path.resolve(__dirname, '..', 'img');
 
     const sizes = [
         700,
-        144
+        144,
+        500,
+        600
     ];
 
     for (let size of sizes) {
