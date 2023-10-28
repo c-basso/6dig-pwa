@@ -7,6 +7,7 @@
     "background_color": "#ffffff",
     "theme_color": "#ffffff",
     "display": "standalone",
+    "display_override": ["window-control-overlay", "minimal-ui"],
     "icons": [
         {
             "src": "/6dig-pwa/img/icon_1024.png",
