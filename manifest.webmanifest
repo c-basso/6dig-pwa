@@ -23,5 +23,19 @@
             "type": "image/png",
             "sizes": "144x144"
         }
+    ],
+    "screenshots": [
+        {
+            "src": "/6dig-pwa/img/icon_700.png",
+            "type": "image/png",
+            "sizes": "700x700",
+            "form_factor": "narrow"
+        },
+        {
+            "src": "/6dig-pwa/img/icon_1024.png",
+            "type": "image/png",
+            "sizes": "1024x1024",
+            "form_factor": "wide"
+        }
     ]
 }
