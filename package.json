@@ -1,0 +1,23 @@
+{
+  "name": "6dig-pwa",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "logo": "node tasks/logo.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/c-basso/6dig-pwa.git"
+  },
+  "keywords": [],
+  "author": "c-basso@ya.ru",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/c-basso/6dig-pwa/issues"
+  },
+  "homepage": "https://github.com/c-basso/6dig-pwa#readme",
+  "devDependencies": {
+    "puppeteer": "^21.4.1",
+    "sharp": "^0.32.6"
+  }
+}
