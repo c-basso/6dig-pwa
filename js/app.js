@@ -230,10 +230,10 @@ $(document).ready(function() {
         const canvas = document.querySelector('#canvas');
         playCamera(canvas, canvas.width, canvas.height);
     });
-});
 
-initTesseract()
-    .then(() => {
-        const canvas = document.querySelector('#canvas');
-        playCamera(canvas, canvas.width, canvas.height);
-    });
+    initTesseract()
+        .then(() => {
+            const canvas = document.querySelector('#canvas');
+            playCamera(canvas, canvas.width, canvas.height);
+        });
+});
