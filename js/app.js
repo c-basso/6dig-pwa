@@ -41,7 +41,6 @@ function copy(text) {
             reject(new Error("None of copying methods are supported by this browser!"));
         }
     });
-
 }
 
 const { createWorker } = Tesseract;
@@ -59,24 +58,98 @@ const initTesseract = async () => {
     worker = await createWorker('eng');
 
     await worker.setParameters({
+        tessedit_write_images: true,
         tessedit_char_whitelist: '0123456789'
     });
 }
+
+let results = [];
+
+const getCountOfDoubles = (arr) => {
+    const res = {};
+
+    arr.forEach((item) => {
+        if (item in res) {
+            res[item] += 1;
+        } else {
+            res[item] = 1;
+        }
+    });
+
+    return res;
+};
+
+const getResultFromCounts = (counts) => {
+    function compare(a, b) {
+        const [, aVal] = a;
+        const [, bVal] = b;
+
+        if (aVal < bVal) {
+            return -1;
+        }
+        if (aVal > bVal) {
+            return 1;
+        }
+
+        return 0;
+    }
+
+    console.log(counts);
+
+    const VALID_COUNT = 20;
+
+    const entries = Object.entries(counts);
+
+    if (entries.length === 1) {
+        const [result] = entries;
+
+        if (result[1] < 5) {
+            return false;
+        }
+
+        return result;
+    }
+
+    const [result1, result2] = entries.sort(compare).reverse();
+
+    if (result1 && result2 && result1[1] === VALID_COUNT && result2[1] === VALID_COUNT) {
+        return false;
+    }
+
+    if (result1 && result2 && result1[1] - result2[1] < VALID_COUNT / 2) {
+        return false;
+    }
+
+    if (result1 && result1[1] < VALID_COUNT) {
+        return false;
+    }
+
+    return result1;
+};
 
 const recognize = async (image) => {
     const result = await worker.recognize(image, { rectangle });
     const text = result.data.text;
 
-    console.log(text);
-
     const code = text.replace(/\D/g, '');
 
     if (code.length === 6) {
-        copy(code)
+        results.push(code)
+    }
+
+    const counts = getCountOfDoubles(results);
+    const bestMatch = getResultFromCounts(counts);
+
+    if (bestMatch) {
+        const [finish] = bestMatch;
+        results = [];
+
+        copy(finish)
             .then(console.log)
             .catch(console.error)
             .finally(() => {
-                alert(code);
+                $('.result-content h1').text(Number(finish).toLocaleString('ru-RU'));
+                $('.result').modal('toggle');
             });
 
         return true;
@@ -87,9 +160,11 @@ const shutDownWorker = async () => {
     await worker.terminate();
 }
 
-const drawMark = (context) => {
-    context.strokeStyle = "green";
-    context.strokeRect(rectangle.left, rectangle.top, rectangle.width, rectangle.height);
+const drawMark = (ctx) => {
+    ctx.strokeStyle = 'green';
+    ctx.lineWidth = 5;
+    ctx.setLineDash([5, 10]);
+    ctx.strokeRect(rectangle.left, rectangle.top, rectangle.width, rectangle.height);
 };
 
 const stopVideo = (stream) => {
@@ -107,12 +182,11 @@ const playStream = (canvas, stream) => {
         const context = canvas.getContext('2d');
         var drawFrame = async function () {
             context.drawImage(video, 0, 0);
+            drawMark(context);
 
-            const image = canvas.toDataURL("image/png");
+            const image = canvas.toDataURL('image/png');
 
             const ok = await recognize(image);
-
-            drawMark(context);
 
             if (!ok) {
                 window.requestAnimationFrame(drawFrame);
@@ -149,8 +223,17 @@ const playCamera = (canvas, preferedWidth, preferedHeight) => {
     }
 }
 
+$(document).ready(function() {
+    $('.restart').click(function () {
+        $('.result').modal('toggle');
+
+        const canvas = document.querySelector('#canvas');
+        playCamera(canvas, canvas.width, canvas.height);
+    });
+});
+
 initTesseract()
     .then(() => {
-        const canvas = document.querySelector('#my-canvas');
+        const canvas = document.querySelector('#canvas');
         playCamera(canvas, canvas.width, canvas.height);
     });
