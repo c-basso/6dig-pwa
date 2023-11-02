@@ -198,8 +198,6 @@ const playStream = (canvas, stream) => {
         const context = canvas.getContext('2d');
         var drawFrame = async function () {
             context.drawImage(video, 0, 0);
-            drawMark(context);
-
             const image = canvas.toDataURL('image/png');
 
             const ok = await recognize(image);

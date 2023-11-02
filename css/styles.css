@@ -11,3 +11,42 @@ html, body {
     align-items: center;
     height: 100%;
 }
+
+#inner {
+    width: 640px;
+    height: 480px;
+    position: relative;
+}
+
+#inner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    clip-path: polygon(
+        0 0,
+        0 480px,
+        170px 480px,
+        170px 140px,
+        470px 140px,
+        470px 340px,
+        170px 340px,
+        170px 480px,
+        640px 480px,
+        640px 0
+    );
+}
+
+#frame {
+    content: '';
+    position: absolute;
+    left: 170px;
+    top: 140px;
+    width: 300px;
+    height: 200px;
+    border: 2px dashed green;
+    border-radius: 3px;
+}
