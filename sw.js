@@ -1,6 +1,6 @@
 var GHPATH = '/6dig-pwa';
 var APP_PREFIX = '6dig_';
-var VERSION = 'version_003';
+var VERSION = 'version_004';
 var URLS = [
     `${GHPATH}/`,
     `${GHPATH}/index.html`,

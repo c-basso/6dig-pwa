@@ -79,6 +79,22 @@ const getCountOfDoubles = (arr) => {
     return res;
 };
 
+const format = (code) => {
+    const by = 3;
+    const numbers = code.split('');
+    let result = '';
+
+    numbers.forEach((num, index) => {
+        if ((index + 1) % by === 0) {
+            result += `${num} `;
+        } else {
+            result += `${num}`;
+        }
+    });
+
+    return result.trim();
+};
+
 const getResultFromCounts = (counts) => {
     function compare(a, b) {
         const [, aVal] = a;
@@ -148,7 +164,7 @@ const recognize = async (image) => {
             .then(console.log)
             .catch(console.error)
             .finally(() => {
-                $('.result-content h1').text(Number(finish).toLocaleString('ru-RU'));
+                $('.result-content h1').text(format(finish));
                 $('.result').modal('toggle');
             });
 
@@ -230,10 +246,10 @@ $(document).ready(function() {
         const canvas = document.querySelector('#canvas');
         playCamera(canvas, canvas.width, canvas.height);
     });
+});
 
-    initTesseract()
+initTesseract()
         .then(() => {
             const canvas = document.querySelector('#canvas');
             playCamera(canvas, canvas.width, canvas.height);
         });
-});
