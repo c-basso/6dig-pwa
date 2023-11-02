@@ -52,7 +52,6 @@
         document.addEventListener('DOMContentLoaded', (event) => {
             const {matches: isBrowser} = window.matchMedia('(display-mode: browser)');
             if (!isBrowser) {
-                window.moveTo(16, 16);
                 window.resizeTo(640, 480);
             }
         });
